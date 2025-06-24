@@ -1,0 +1,39 @@
+image: maven:3.9.0-eclipse-temurin-17
+
+stages:
+  - test
+  - report
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository
+
+before_script:
+  - echo "Setting up environment"
+  - mvn --version
+
+test:
+  stage: test
+  script:
+    - mvn clean test
+  artifacts:
+    when: always
+    paths:
+      - target/surefire-reports/
+      - target/allure-results/
+      - target/cucumber-report.html
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+
+generate_allure_report:
+  stage: report
+  image: yandex/allure-cli:latest
+  script:
+    - allure generate target/allure-results --clean -o target/allure-report
+  artifacts:
+    when: always
+    paths:
+      - target/allure-report
