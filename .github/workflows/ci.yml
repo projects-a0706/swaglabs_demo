@@ -30,6 +30,10 @@ jobs:
       - name: Run tests
         run: mvn clean test
 
+      - name: Show Test Logs
+        if: failure()
+        run: cat target/surefire-reports/*.txt || true
+
       - name: Upload Surefire Reports
         uses: actions/upload-artifact@v4
         with:
@@ -41,3 +45,5 @@ jobs:
         with:
           name: allure-results
           path: target/allure-results/
+
+
