@@ -1,11 +1,11 @@
-# SwagLabs Automation Testing Project
+# Swag Labs Automation Testing Project
 
-This project automates end-to-end UI tests for the SwagLabs application using Java, Cucumber, Selenium WebDriver, and Allure Reports.
+This project automates end-to-end UI tests for the Swag Labs application using Java, Cucumber, Selenium WebDriver and Allure Reports.
 
 ## Documenation (URLs)
 
-- Test Plan [Google Docs] (https://docs.google.com/document/d/1HGZuspp0vHq-0HXlNjzDKh6FrcX_1t6QyWqEDxzhwJk/edit?usp=sharing)
-- Test Cases [Google Sheets] (https://docs.google.com/spreadsheets/d/1z3Wg7XP8b0x8eHKzt9pdLMvBqF9KBabHoTUV6s4eywM/edit?usp=sharing)
+- Test Plan [Google Docs](https://docs.google.com/document/d/1HGZuspp0vHq-0HXlNjzDKh6FrcX_1t6QyWqEDxzhwJk/edit?usp=sharing)
+- Test Cases [Google Sheets](https://docs.google.com/spreadsheets/d/1z3Wg7XP8b0x8eHKzt9pdLMvBqF9KBabHoTUV6s4eywM/edit?usp=sharing)
 
 ## Tech Stack
 
