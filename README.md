@@ -1,6 +1,8 @@
 # Swag Labs Automation Testing Project
 
-This project automates end-to-end UI tests for the Swag Labs application using Java, Cucumber, Selenium WebDriver and Allure Reports.
+This is a demo automation project created to showcase my skills in end-to-end UI testing.
+It automates user workflows for the Swag Labs e-commerce application using Java, Cucumber, Selenium WebDriver, and Allure Reports.
+The project is intended for learning, portfolio, and demonstration purposes only.
 
 ## Documenation (URLs)
 
