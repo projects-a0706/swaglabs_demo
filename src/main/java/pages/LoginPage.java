@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -51,7 +50,7 @@ public class LoginPage {
         return driver.findElement(errorMessage).getText();
     }
 
-    public boolean xIconUsernameIsDisplayed () {
+    public boolean isXIconUsernameDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement xIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(xIconUsername));
@@ -62,7 +61,7 @@ public class LoginPage {
         }
     }
 
-    public boolean xIconPasswordIsDisplayed () {
+    public boolean isXIconPasswordDisplayed() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement xIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(xIconPassword));
