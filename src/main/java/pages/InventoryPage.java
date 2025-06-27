@@ -95,11 +95,9 @@ public class InventoryPage {
             itemPrices.add(item.getText());
         }
 
-        List<Double> pricesNumeric = itemPrices.stream()
+        return itemPrices.stream()
                 .map(p -> Double.parseDouble(p.replace("$", "")))
                 .collect(Collectors.toList());
-
-        return pricesNumeric;
     }
 
     public Integer getItemsCount() {
