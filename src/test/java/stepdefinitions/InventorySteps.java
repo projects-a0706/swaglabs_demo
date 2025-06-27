@@ -74,4 +74,69 @@ public class InventorySteps {
         logger.info("Select {} filter.", filterName);
         inventoryPage.selectFilter(filterName);
     }
+
+    @Then("the items should be sorted in ascending price order")
+    public void the_items_should_be_sorted_in_ascending_price_order() {
+        logger.info("Get item prices.");
+        List<Double> actualPrices = inventoryPage.getInventoryItemPrices();
+        System.out.println(actualPrices);
+
+        logger.info("Sort item prices in ascending order.");
+        List<Double> expectedPrices = new ArrayList<>(actualPrices);
+        Collections.sort(expectedPrices);
+        System.out.println(expectedPrices);
+
+        Assertions.assertEquals(actualPrices, expectedPrices,"Items are not sorted correctly.");
+    }
+
+    @Then("the items should be sorted in descending price order")
+    public void the_items_should_be_sorted_in_descending_price_order() {
+        logger.info("Get item prices.");
+        List<Double> actualPrices = inventoryPage.getInventoryItemPrices();
+        System.out.println(actualPrices);
+
+        logger.info("Sort item prices in descending order.");
+        List<Double> expectedPrices = new ArrayList<>(actualPrices);
+        expectedPrices.sort(Collections.reverseOrder());
+        System.out.println(expectedPrices);
+
+        Assertions.assertEquals(actualPrices, expectedPrices,"Items are not sorted correctly.");
+    }
+
+    @Then("all items should have a title")
+    public void all_items_should_have_a_title() {
+        logger.info("Get items count and item titles count and verify the values are the same.");
+        Assertions.assertEquals(inventoryPage.getItemsCount(),
+                                inventoryPage.getInventoryItemNamesCount(),
+                        "Items count " + inventoryPage.getItemsCount() + " does not match item names " + inventoryPage.getInventoryItemNamesCount() + " count.");
+    }
+
+    @And("every title starts with {string}")
+    public void every_title_starts_with(String str) {
+        logger.info("Verify all item names start with {}", str);
+        Assertions.assertNull(inventoryPage.inventoryItemNamesNotStartWithDefinedString(str),
+                    "The following name(s) does not match: " + inventoryPage.inventoryItemNamesNotStartWithDefinedString(str));
+    }
+
+    @Then("all items should have a description")
+    public void all_items_should_have_a_description() {
+        logger.info("Get items count and item descriptions count and verify the values are the same.");
+        Assertions.assertEquals(inventoryPage.getItemsCount(),
+                                inventoryPage.getInventoryItemDescriptionsCount(),
+                        "Items count " + inventoryPage.getItemsCount() + " does not match item names " + inventoryPage.getInventoryItemNamesCount() + " count.");
+    }
+
+    @Then("all items should have an image")
+    public void all_items_should_have_an_image() {
+        logger.info("Get items count and item images count and verify the values are the same.");
+        Assertions.assertEquals(inventoryPage.getItemsCount(),
+                                inventoryPage.getInventoryItemImagesCount(),
+                        "Items count " + inventoryPage.getItemsCount() + " does not match item images " + inventoryPage.getInventoryItemImagesCount() + " count.");
+    }
+
+    @And("the image is not broken")
+    public void theImageIsNotBroken() {
+        logger.info("Verifying images are not broken.");
+        Assertions.assertTrue(inventoryPage.imageUrlsRespondSuccessfully(), "Image(s) is broken.");
+    }
 }
