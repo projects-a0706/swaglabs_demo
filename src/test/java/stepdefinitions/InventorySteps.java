@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static utils.Hooks.inventoryPage;
-import static utils.Hooks.loginPage;
+import static utils.Hooks.*;
 
 public class InventorySteps {
 
@@ -138,5 +138,75 @@ public class InventorySteps {
     public void theImageIsNotBroken() {
         logger.info("Verifying images are not broken.");
         Assertions.assertTrue(inventoryPage.imageUrlsRespondSuccessfully(), "Image(s) is broken.");
+    }
+
+    @Then("all items should have a price")
+    public void all_items_should_have_a_price() {
+        logger.info("Get items count and item prices count and verify the values are the same.");
+        Assertions.assertEquals(inventoryPage.getItemsCount(),
+                                inventoryPage.getInventoryItemPricesCount(),
+                        "Items count " + inventoryPage.getItemsCount() + " does not match item prices " + inventoryPage.getInventoryItemPricesCount() + " count.");
+    }
+
+    @And("the price should be in the US format")
+    public void the_price_should_be_in_the_us_format() {
+        logger.info("Verify price format.");
+        Assertions.assertTrue(inventoryPage.isPriceFormatCorrect(), "Some item(s) has incorrect price format.");
+
+    }
+
+    @When("the user clicks on {string} button at the first item")
+    public void the_user_clicks_on_add_remove_button_at_the_first_item(String buttonText) {
+        logger.info("Click on {} button.", buttonText);
+
+        switch (buttonText) {
+            case "Add to cart":
+                inventoryPage.clickOnAddToCartButtonFirstItem();
+                break;
+            case "Remove":
+                inventoryPage.clickOnRemoveFromCartButtonFirstItem();
+                break;
+        }
+    }
+
+    @Then("the button text is changed to {string}")
+    public void the_button_text_is_changed_to_remove(String buttonText) {
+        logger.info("Verify button text is {}.", buttonText);
+
+        switch (buttonText) {
+            case "Add to cart":
+                Assertions.assertEquals(buttonText, inventoryPage.getAddToCartButtonText(), "Unexpected text button.");
+                break;
+            case "Remove":
+                Assertions.assertEquals(buttonText, inventoryPage.getRemoveFromCartButtonText(), "Unexpected text button.");
+                break;
+        }
+    }
+
+    @And("the cart icon in the top right updates to show {string} item")
+    public void the_cart_icon_in_the_top_right_updates_to_show_n_item(String n) {
+        logger.info("Verify the number of items ({}) displayed on the cart icon in the top right.", n);
+        Assertions.assertEquals(n, inventoryPage.getCartBadge(), "Unexpected number of items in the cart.");
+    }
+
+
+    @When("the user clicks on the menu icon")
+    public void the_user_clicks_on_the_menu_icon() {
+        logger.info("Click on the menu");
+        inventoryPage.clickOnMenuButton();
+    }
+
+    @Then("the menu should be opened")
+    public void the_menu_should_be_opened() {
+        logger.info("Verify that the menu is displayed");
+        Assertions.assertTrue(inventoryPage.isMenuDisplayed(), "The menu is not displayed");
+    }
+
+    @And("the menu should contain the following items:")
+    public void the_menu_should_contain_the_following_items(DataTable dataTable) {
+        List<String> expectedItems = dataTable.asList();
+        List<String> actualItems = inventoryPage.getMenuItemNames();
+
+        Assertions.assertEquals(expectedItems, actualItems, "Unexpected menu item(s)");
     }
 }
