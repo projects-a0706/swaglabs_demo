@@ -14,6 +14,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class InventoryPage {
@@ -22,14 +23,19 @@ public class InventoryPage {
 
     private By inventoryContainer = By.id("inventory_container");
     private By selectFilter = By.className("select_container");
-    private By selectFilterActiveOption = By.className("active_option");
-    private By selectFilterOptions = By.className("product_sort_container");
-    private By inventoryList = By.className("inventory_container");
-    private By inventoryItem = By.className("inventory_item");
-    private By inventoryItemName = By.className("inventory_item_name");
-    private By inventoryItemDescription = By.className("inventory_item_desc");
+    private By selectFilterActiveOption = By.cssSelector("span[data-test=\"active-option\"]");
+    private By selectFilterOptions = By.cssSelector("select[data-test=\"product-sort-container\"]");
+    private By inventoryItem = By.cssSelector("div[data-test=\"inventory-item\"]");
+    private By inventoryItemName = By.cssSelector("div[data-test=\"inventory-item-name\"]");
+    private By inventoryItemDescription = By.cssSelector("div[data-test=\"inventory-item-desc\"]");
     private By inventoryItemImage = By.cssSelector("img[class='inventory_item_img']");
-    private By inventoryItemPrice = By.className("inventory_item_price");
+    private By inventoryItemPrice = By.cssSelector("div[data-test=\"inventory-item-price\"]");
+    private By addToCartButtonFirstItem = By.id("add-to-cart-sauce-labs-backpack");
+    private By removeFromCartButtonFirstItem = By.id("remove-sauce-labs-backpack");
+    private By cartBadge = By.cssSelector("span[data-test=\"shopping-cart-badge\"]");
+    private By menuButton = By.id("react-burger-menu-btn");
+    private By menuWrap = By.cssSelector(".bm-menu-wrap");
+    private By itemMenuItem = By.cssSelector(".bm-item.menu-item");
 
 
     public InventoryPage(WebDriver driver) {
@@ -165,6 +171,59 @@ public class InventoryPage {
 
     }
 
+    public Integer getInventoryItemPricesCount() {
+        return driver.findElements(inventoryItemPrice).size();
+    }
+
+    public boolean isPriceFormatCorrect() {
+        List<WebElement> priceElements = driver.findElements(inventoryItemPrice);
+        Pattern pattern = Pattern.compile("^\\$\\d+\\.\\d{2}$");
+
+        return priceElements.stream()
+                .map(priceElement -> priceElement.getText().trim())
+                .allMatch(text -> !text.isEmpty() && pattern.matcher(text).matches());
+    }
+
+    public void clickOnAddToCartButtonFirstItem() {
+        driver.findElement(addToCartButtonFirstItem).click();
+    }
+
+    public void clickOnRemoveFromCartButtonFirstItem() {
+        driver.findElement(removeFromCartButtonFirstItem).click();
+    }
+
+    public String getAddToCartButtonText() {
+        return driver.findElement(addToCartButtonFirstItem).getText().trim();
+    }
+
+    public String getRemoveFromCartButtonText() {
+       return driver.findElement(removeFromCartButtonFirstItem).getText().trim();
+    }
+
+    public String getCartBadge() {
+        List<WebElement> badgeElements = driver.findElements(cartBadge);
+
+        if (!badgeElements.isEmpty() && badgeElements.get(0).isDisplayed()) {
+            return  badgeElements.get(0).getText().trim();
+        } else {
+            return "0";
+        }
+    }
+
+    public void clickOnMenuButton() {
+        driver.findElement(menuButton).click();
+    }
+
+    public boolean isMenuDisplayed() {
+        return driver.findElement(menuWrap).isDisplayed();
+    }
+
+    public List<String> getMenuItemNames() {
+        new WebDriverWait(driver,Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(itemMenuItem));
+
+        return driver.findElements(itemMenuItem).stream().map(WebElement::getText).collect(Collectors.toList());
+    }
 
 }
 

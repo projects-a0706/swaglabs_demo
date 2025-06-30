@@ -48,3 +48,36 @@ Feature: Inventory
     And the image is not broken
 
 
+  @2_008
+  Scenario: Verify product price is displayed
+    Given the standard user is logged in and is on the inventory page
+    Then all items should have a price
+    And the price should be in the US format
+
+
+  @2_009 @2_010
+  Scenario: Verify Add to cart button is clickable
+    Given the standard user is logged in and is on the inventory page
+    When the user clicks on "Add to cart" button at the first item
+    Then the button text is changed to "Remove"
+    And the cart icon in the top right updates to show "1" item
+    When the user clicks on "Remove" button at the first item
+    Then the button text is changed to "Add to cart"
+    And the cart icon in the top right updates to show "0" item
+
+
+  @2_011
+  Scenario: Verify menu is displayed
+    Given the standard user is logged in and is on the inventory page
+    When the user clicks on the menu icon
+    Then the menu should be opened
+    And the menu should contain the following items:
+      | All Items        |
+      | About            |
+      | Logout           |
+      | Reset App State  |
+
+
+
+
+
