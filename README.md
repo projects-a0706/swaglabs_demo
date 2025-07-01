@@ -1,11 +1,13 @@
 # SwagLabs Automation Testing Project
 
-This project automates end-to-end UI tests for the SwagLabs application using Java, Cucumber, Selenium WebDriver, and Allure Reports.
+This is a demo automation project created to showcase my skills in end-to-end UI testing.
+It automates user workflows for the Swag Labs e-commerce application using Java, Cucumber, Selenium WebDriver, and Allure Reports.
+The project is intended for learning, portfolio, and demonstration purposes only.
 
 ## Documenation (URLs)
 
-- Test Plan [Google Docs] (https://docs.google.com/document/d/1HGZuspp0vHq-0HXlNjzDKh6FrcX_1t6QyWqEDxzhwJk/edit?usp=sharing)
-- Test Cases [Google Sheets] (https://docs.google.com/spreadsheets/d/1z3Wg7XP8b0x8eHKzt9pdLMvBqF9KBabHoTUV6s4eywM/edit?usp=sharing)
+- Test Plan [Google Docs](https://docs.google.com/document/d/1HGZuspp0vHq-0HXlNjzDKh6FrcX_1t6QyWqEDxzhwJk/edit?usp=sharing)
+- Test Cases [Google Sheets](https://docs.google.com/spreadsheets/d/1z3Wg7XP8b0x8eHKzt9pdLMvBqF9KBabHoTUV6s4eywM/edit?usp=sharing)
 
 ## Tech Stack
 
@@ -14,9 +16,9 @@ This project automates end-to-end UI tests for the SwagLabs application using Ja
 - Selenium WebDriver
 - Cucumber (BDD)
 - JUnit
-- Logback
+- Logback 
 - Allure, Surefire
-- Jenkins, GitHub Actions
+- Jenkins
 
 ## Project Structure
 
@@ -43,14 +45,6 @@ This project automates end-to-end UI tests for the SwagLabs application using Ja
 ## Jenkins CI Integration
 
 This project is integrated with Jenkins to automate test execution and reporting. It is hosted locally and can be shown on request.
-
-## GitHub Actions
-
-This project uses GitHub Actions for continuous integration. Every push to the repository triggers an automated workflow that:
-- Checks out the latest code
-- Installs Java and Maven
-- Executes all automated tests
-- Uploads test results as artifacts (Surefire and Allure)
 
 ## Reporting
 

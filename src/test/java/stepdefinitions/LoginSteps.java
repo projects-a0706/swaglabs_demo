@@ -21,22 +21,22 @@ public class LoginSteps {
 
     @When("the user enters username {string} and password {string}")
     public void the_user_logs_in_with_credentials(String username, String password) {
-        logger.info("Enter username: {}", username);
+        logger.info("Enter username: {}.", username);
         loginPage.enterUsername(username);
 
-        logger.info("Enter password: {}", password);
+        logger.info("Enter password: {}.", password);
         loginPage.enterPassword(password);
     }
 
     @When("the user clicks on login button")
     public void the_user_clicks_on_login_button_success () {
-        logger.info("Click Login (success)");
+        logger.info("Click Login (success).");
         inventoryPage = loginPage.clickLoginButtonSuccess();
     }
 
     @When("the user clicks on login button expecting an error")
     public void the_user_clicks_on_login_button_error () {
-        logger.info("Click Login (error expected)");
+        logger.info("Click Login (error expected).");
         loginPage.clickLoginButtonError();
     }
 
@@ -58,8 +58,8 @@ public class LoginSteps {
     @When("x-icons should be displayed in the username and password fields")
     public void x_icons_should_be_displayed_in_the_username_and_password_fields() {
         logger.info("Verify x-icons are displayed");
-        Assertions.assertTrue(loginPage.xIconUsernameIsDisplayed(), "x-icon is not displayed in the username field.");
-        Assertions.assertTrue(loginPage.xIconPasswordIsDisplayed(), "x-icon is not displayed in the passsword field.");
+        Assertions.assertTrue(loginPage.isXIconUsernameDisplayed(), "x-icon is not displayed in the username field.");
+        Assertions.assertTrue(loginPage.isXIconPasswordDisplayed(), "x-icon is not displayed in the passsword field.");
     }
 
 }
