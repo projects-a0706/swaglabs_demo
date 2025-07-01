@@ -3,7 +3,7 @@ name: Run Swag Labs Demo Tests
 
 on:
   push:
-    branches: [ main, configurations2]
+    branches: [ main]
   pull_request:
 
 jobs:
