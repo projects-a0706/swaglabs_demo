@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.InventoryPage;
 import pages.LoginPage;
 
@@ -17,6 +18,14 @@ public class Hooks {
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox"); // Prevent Linux sandbox errors
+        options.addArguments("--disable-dev-shm-usage"); // Avoid shared memory issues
+        options.addArguments("--disable-gpu"); // Optional but safe
+        options.addArguments("--remote-allow-origins=*"); // For Chrome 111+
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com");
