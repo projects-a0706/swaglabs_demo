@@ -3,7 +3,7 @@ name: Run Swag Labs Demo Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, configurations2]
   pull_request:
 
 jobs:
@@ -37,13 +37,20 @@ jobs:
       - name: Upload Surefire Reports
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
-          path: target/surefire-reports/
+            name: surefire-reports
+            path: target/surefire-reports/
 
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: target/allure-results/
+            name: allure-results
+            path: target/allure-results/
 
+      - name: Generate Allure Report
+        run: mvn allure:report
 
+      - name: Upload Allure HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+            name: allure-report
+            path: target/site/allure-maven-plugin/
