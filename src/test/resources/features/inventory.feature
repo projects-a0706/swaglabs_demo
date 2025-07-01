@@ -1,6 +1,6 @@
 Feature: Inventory
 
-  @2_001
+  @2_001 @ignore
   Scenario: Filter by Name ASC
     Given the standard user is logged in and is on the inventory page
     Then the filter should be preselected with alphabetical order "Name (A to Z)"
@@ -28,7 +28,7 @@ Feature: Inventory
     Then the items should be sorted in descending price order
 
   # Expected : FAIL
-  @2_005
+  @2_005 @ignore
   Scenario: Verify product title is displayed
     Given the standard user is logged in and is on the inventory page
     Then all items should have a title

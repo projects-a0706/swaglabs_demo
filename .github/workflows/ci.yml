@@ -1,0 +1,56 @@
+# .github/workflows/ci.yml
+name: Run Swag Labs Demo Tests
+
+on:
+  push:
+    branches: [ main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+
+      - name: Run tests
+        run: mvn clean test
+
+      - name: Show Test Logs
+        if: failure()
+        run: cat target/surefire-reports/*.txt || true
+
+      - name: Upload Surefire Reports
+        uses: actions/upload-artifact@v4
+        with:
+            name: surefire-reports
+            path: target/surefire-reports/
+
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+            name: allure-results
+            path: target/allure-results/
+
+      - name: Generate Allure Report
+        run: mvn allure:report
+
+      - name: Upload Allure HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+            name: allure-report
+            path: target/site/allure-maven-plugin/

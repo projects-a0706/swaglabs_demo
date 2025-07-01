@@ -5,8 +5,13 @@ import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.InventoryPage;
 import pages.LoginPage;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Hooks {
 
@@ -15,9 +20,21 @@ public class Hooks {
     public static InventoryPage inventoryPage;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox"); // Prevent Linux sandbox errors
+        options.addArguments("--disable-dev-shm-usage"); // Avoid shared memory issues
+        options.addArguments("--disable-gpu"); // Optional but safe
+        options.addArguments("--remote-allow-origins=*"); // For Chrome 111+
+
+        // Unique temporary user data dir
+        Path tempProfile = Files.createTempDirectory("chrome-profile");
+        options.addArguments("--user-data-dir=" + tempProfile.toFile().getAbsolutePath());
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com");
         loginPage = new LoginPage(driver);

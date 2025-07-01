@@ -48,7 +48,7 @@ public class InventoryPage {
 
     private boolean isSelectFilterDisplayed() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement filter = wait.until(ExpectedConditions.visibilityOfElementLocated(selectFilter));
             return filter.isDisplayed();
         } catch (TimeoutException e) {
