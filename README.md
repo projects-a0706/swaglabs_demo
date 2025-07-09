@@ -4,11 +4,6 @@ This is a demo automation project created to showcase my skills in end-to-end UI
 It automates user workflows for the Swag Labs e-commerce application using Java, Cucumber, Selenium WebDriver, and Allure Reports.
 The project is intended for learning, portfolio, and demonstration purposes only.
 
-## Documenation (URLs)
-
-- Test Plan [Google Docs](https://docs.google.com/document/d/1HGZuspp0vHq-0HXlNjzDKh6FrcX_1t6QyWqEDxzhwJk/edit?usp=sharing)
-- Test Cases [Google Sheets](https://docs.google.com/spreadsheets/d/1z3Wg7XP8b0x8eHKzt9pdLMvBqF9KBabHoTUV6s4eywM/edit?usp=sharing)
-
 ## Tech Stack
 
 - Java 17
